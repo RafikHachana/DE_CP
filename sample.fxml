@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DE_CP.Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Solution Graphs">
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="371.0" prefWidth="640.0">
+                           <children>
+                              <LineChart fx:id="solutionGraph" alternativeRowFillVisible="false" createSymbols="false" focusTraversable="true" title="Exact solution and its approximations">
+                                <xAxis>
+                                  <NumberAxis label="x" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis label="y" side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                              <LineChart fx:id="globalErrorGraph" createSymbols="false" focusTraversable="true" title="Global error">
+                                <xAxis>
+                                    <NumberAxis label="x" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis label="|e|" side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="371.0" prefWidth="435.0">
+                           <children>
+                              <Label text="x0:" />
+                              <TextField fx:id="x0Field" />
+                              <Label layoutX="10.0" layoutY="10.0" text="y0:" />
+                              <TextField fx:id="y0Field" layoutX="10.0" layoutY="27.0" />
+                              <Label layoutX="10.0" layoutY="77.0" text="X:" />
+                              <TextField fx:id="XField" layoutX="10.0" layoutY="52.0" />
+                              <Label layoutX="10.0" layoutY="94.0" text="N:" />
+                              <TextField fx:id="NField" layoutX="10.0" layoutY="111.0" />
+                              <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <CheckBox fx:id="showExact" mnemonicParsing="false" selected="true" text="Exact Solution" />
+                                    <CheckBox fx:id="showEuler" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" selected="true" text="Euler Method" />
+                                    <CheckBox fx:id="showImprovedEuler" layoutX="10.0" layoutY="27.0" mnemonicParsing="false" selected="true" text="Improved Euler Method" />
+                                    <CheckBox fx:id="showRungeKutta" layoutX="10.0" layoutY="44.0" mnemonicParsing="false" selected="true" text="Runge-Kutta Method" />
+                                 </children>
+                              </VBox>
+                              <Button mnemonicParsing="false" onAction="#graphTab1" text="Draw">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </Button>
+                              <VBox prefHeight="200.0" prefWidth="100.0" visible="false" fx:id="errorTab1">
+                                 <children>
+                                    <Label text="Couldn't draw graphs! Make sure all of the following conditions hold:" textFill="#b90000" />
+                                    <Label layoutX="10.0" layoutY="10.0" text="*  y&gt;=0 (dictated by the given ODE)" textFill="#b90000" />
+                                    <Label layoutX="10.0" layoutY="27.0" text="*  [x0,X] doesn't contain 0 (discontinuity)" textFill="#b90000" />
+                                    <Label layoutX="10.0" layoutY="44.0" text="*  x0&lt;X" textFill="#b90000" />
+                                    <Label layoutX="10.0" layoutY="61.0" text="*  N is a positive integer" textFill="#b90000" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content>
+          </Tab>
+          <Tab text="Convergence Graph">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="371.0" prefWidth="640.0">
+                                 <children>
+                                    <LineChart fx:id="maxLocalError" createSymbols="false" focusTraversable="true">
+                                       <xAxis>
+                                           <NumberAxis label="N" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis label="|max_e|" side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="10.0" layoutY="10.0" prefHeight="371.0" prefWidth="435.0">
+                                 <children>
+                                    <Label layoutX="10.0" layoutY="77.0" text="n0:" />
+                                    <TextField fx:id="n0FieldTab2" layoutX="10.0" layoutY="52.0" />
+                                    <Label layoutX="10.0" layoutY="94.0" text="N:" />
+                                    <TextField fx:id="NFieldTab2" layoutX="10.0" layoutY="111.0" />
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <CheckBox fx:id="showEulerTab2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" selected="true" text="Euler Method" />
+                                          <CheckBox fx:id="showImprovedEulerTab2" layoutX="10.0" layoutY="27.0" mnemonicParsing="false" selected="true" text="Improved Euler Method" />
+                                          <CheckBox fx:id="showRungeKuttaTab2" layoutX="10.0" layoutY="44.0" mnemonicParsing="false" selected="true" text="Runge-Kutta Method" />
+                                       </children>
+                                    </VBox>
+                                    <Button mnemonicParsing="false" onAction="#graphTab2" text="Draw">
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </Button>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" visible="false" fx:id="errorTab2">
+                                       <children>
+                                          <Label text="Couldn't draw graphs! Make sure all of the following conditions hold:" textFill="#b90000" />
+                                          <Label layoutX="10.0" layoutY="10.0" text="*  n0 is a positive integer" textFill="#b90000" />
+                                          <Label layoutX="10.0" layoutY="61.0" text="*  N is a positive integer" textFill="#b90000" />
+                                          <Label layoutX="10.0" layoutY="44.0" text="*  n0&lt;N" textFill="#b90000" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
+               </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</GridPane>
